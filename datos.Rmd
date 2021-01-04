@@ -1,0 +1,83 @@
+---
+title: "Datos"
+description: |
+  Aqui encontraras los datos relevantes para su consulta
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Descargar:
+- Lorem ipsum.csv 
+
+### Opción 1 de tabla
+```{r}
+library(knitr)
+kable(head(mtcars))
+```
+
+
+### Opción 2 de tabla
+```{r, layout="l-body-outset"}
+library(rmarkdown)
+paged_table(mtcars)
+```
+
+
+### Opción 3 de tabla
+```{r, layout="l-body-outset"}
+library(rmarkdown)
+library(gt)
+library(tidyverse)
+library(glue)
+
+# Define the start and end dates for the data range
+start_date <- "2010-06-07"
+end_date <- "2010-06-14"
+
+# Create a gt table based on preprocessed
+# `sp500` table data
+sp500 %>%
+  dplyr::filter(date >= start_date & date <= end_date) %>%
+  dplyr::select(-adj_close) %>%
+  gt() %>%
+  tab_header(
+    title = "S&P 500",
+    subtitle = glue::glue("{start_date} to {end_date}")
+  ) %>%
+  fmt_date(
+    columns = vars(date),
+    date_style = 3
+  ) %>%
+  fmt_currency(
+    columns = vars(open, high, low, close),
+    currency = "USD"
+  ) %>%
+  fmt_number(
+    columns = vars(volume),
+    suffixing = TRUE
+  )
+```
+
+### Tabla markdown
+
+| Option           | Description                                    |
+|------------------|------------------------------------------------|
+| `rows.print`     | Maximum rows to print per page.                |
+| `max.print`      | Maximum rows in the table (defaults to 1000).  |
+| `cols.print`     | Maximum columns in the table (defaults to 10). |
+| `rownames.print` | Print row names as part of the table.          |
+
+
+### Tabla markdown 2\
+
+::: l-body-outset
+| Option           | Description                                    |
+|------------------|------------------------------------------------|
+| `rows.print`     | Maximum rows to print per page.                |
+| `max.print`      | Maximum rows in the table (defaults to 1000).  |
+| `cols.print`     | Maximum columns in the table (defaults to 10). |
+| `rownames.print` | Print row names as part of the table.          |
+:::
