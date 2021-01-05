@@ -4,9 +4,10 @@ theme: theme.css
 description: |
   COVID-19
 output_dir: "docs"
+exclude: ["*.csv"]
 navbar:
   right:
-    - text: "Indicadores"
+    - text: "Indicadores semananal"
       href: index.html
     - text: "Datos"
       href: datos.html

@@ -3,16 +3,434 @@ title: "COVID-19"
 description: |
   Website para predicciones de muertes y hospitalizaciones por COVID-19 en México
 site: distill::distill_website
+output: 
+  distill::distill_article:
+    toc: true
+    toc_depth: 4
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
+################################################################################
+############################  LIBRARIES  #######################################
+################################################################################
+library(tidyverse)
+library(cmdstanr)
+library(posterior)
+library(data.table)
+library(lubridate)
+library(ggnewscale)
+library(ggpubr)
+################################################################################
+############################  READ DATA  #######################################
+################################################################################
+fit <- read_cmdstan_csv(files = c("data/epi_1.csv","data/epi_2.csv"))
+draws <-fit[['post_warmup_draws']]
+sim_df <- as_draws_df(draws) %>% 
+  as_tibble()
 
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
+data <- read_rds('data/processed_data.rds')
+
+df_region_codes <- read_csv('data/mexico-population.csv')
+
+
+################################################################################
+###################  PREPARING DATES DATAFRAME  ################################
+################################################################################
+
+fc <- 10
+
+dates <- data[['dates']]
+
+transf <- function(x, l){
+  y <- as_tibble(l[[x]]) 
+  z <- y %>% 
+    mutate(country = x)
+  return(z)
+}
+
+tmp <- lapply(names(dates), transf, dates)
+# tmp_df <- do.call(rbind, tmp)
+dates_df <- tmp %>% 
+  rbindlist %>% 
+  rename(date = value) %>% 
+  mutate(date = as_date(date),
+         country = as_factor(country))
+
+dates_fc_df = dates_df %>%
+  mutate(forecast = fc) %>% 
+  group_by(country) %>% 
+  filter(date == max(date)) %>% 
+  group_by(date, country) %>% 
+  complete(forecast = sequence(forecast)) %>% 
+  mutate(date = date + forecast) %>% 
+  select(-forecast) %>% 
+  rbind(dates_df) %>% 
+  group_by(country) %>% 
+  arrange(country, date) %>% 
+  mutate(day = row_number())
+
+################################################################################
+#######################  PREPARING DEATH DATA  #################################
+################################################################################
+
+deaths <- data[['deaths_by_country']]
+deaths_sus <- data[['deaths_pos_sosp_country']]
+
+tmp1 <- lapply(names(deaths), transf, deaths)
+tmp2 <- lapply(names(deaths_sus), transf, deaths_sus)
+
+deaths_df <- tmp1 %>% 
+  rbindlist %>% 
+  rename(Confirmed = value) %>% 
+  cbind(tmp2 %>% 
+          rbindlist %>% 
+          rename(Suspected = value) %>% 
+          select(-country)) %>% 
+  mutate(country = as_factor(country)) %>% 
+  group_by(country) %>% 
+  mutate(
+         day = row_number()) %>% 
+  # select(-tmp) %>% 
+  right_join(dates_fc_df,
+             by = c('country', 'day')) %>% 
+  pivot_longer(cols = c('Confirmed', 'Suspected'),
+               names_to = 'status',
+               values_to = 'y')
+
+################################################################################
+#######################  PREPARING PREDICTION DATA  ############################
+################################################################################
+
+hosp <- data[['hospi_by_country']]
+hosp_sus <- data[['hospi_pos_sosp_country']]
+
+tmp1 <- lapply(names(hosp), transf, hosp)
+tmp2 <- lapply(names(hosp_sus), transf, hosp_sus)
+
+hosp_df <- tmp1 %>% 
+  rbindlist %>% 
+  rename(Confirmed = value) %>% 
+  cbind(tmp2 %>% 
+          rbindlist %>% 
+          rename(Suspected = value) %>% 
+          select(-country)) %>% 
+  mutate(country = as_factor(country)) %>% 
+  group_by(country) %>% 
+  mutate(
+    day = row_number()) %>% 
+  # select(-tmp) %>% 
+  right_join(dates_fc_df,
+             by = c('country', 'day')) %>% 
+  pivot_longer(cols = c('Confirmed', 'Suspected'),
+               names_to = 'status',
+               values_to = 'y')
+
+
+################################################################################
+#######################  PREPARING PREDICTION DATA  ############################
+################################################################################
+countries <- c("AS","BC","BS","CC","CS","CH","DF","CL","CM","DG","GT","GR","HG",
+               "JC","MC","MN","MS","NT","NL","OC","PL","QT","QR","SP","SL","SR",
+               "TC","TL","TS","VZ","YN","ZS")
+
+pred_df <- sim_df %>%
+  select(starts_with(c('E_deaths', 'E_hosp', 'Rt_', 'prediction'))) %>% 
+  as.matrix() %>% 
+  matrixStats::colQuantiles(probs = c(0.5, 0.025, 0.975, 0.25, 0.75)) %>% 
+  data.frame(variable = row.names(.), .) %>% 
+  as_tibble() %>% 
+  mutate(variable = trimws(
+    str_replace_all(variable,
+                    pattern = '[\\[\\],]',
+                    replacement = ' '),
+    which = 'right'
+  )) %>% 
+  separate(variable,
+           into = c('var', 'day', 'n_country'),
+           sep = ' ',
+           convert = T,
+           remove = T) %>% 
+  mutate(country = as_factor(recode(n_country, !!!countries))) %>% 
+  inner_join(dates_fc_df,
+             by = c('country', 'day')) %>% 
+  select(var, country, date, everything(), -day) %>% 
+  ungroup %>% 
+  rename(y = X50.,
+         y_li = X2.5.,
+         y_ui = X97.5.,
+         y_li2 = X25.,
+         y_ui2 = X75.)
+
+pred_df_long <- pred_df %>% 
+  select(var, country, date, y, y_li = y_li2, y_ui = y_ui2) %>% 
+  mutate(credibility = '50%') %>% 
+  rbind(
+    pred_df %>% 
+      select(var, country, date, y, y_li, y_ui) %>% 
+      mutate(credibility = '95%')
+      )
+```
+
+# Indicadores semanales por entidad federativa
+
+```{r plots, message=FALSE, warning=FALSE}
+
+################################################################################
+#################################  PLOTTING  ###################################
+################################################################################
+
+for (c in countries){
+
+  df1 <- pred_df_long %>% filter(country == c)
+  df1$credibility <- factor(df1$credibility, levels=c('95%', '50%'))
+  
+  df2 <- deaths_df %>% filter(country == c)
+  df2$status <- factor(df2$status, levels=c('Suspected', 'Confirmed'))
+  
+  df3 <- hosp_df %>% filter(country == c)
+  df3$status <- factor(df3$status, levels=c('Suspected', 'Confirmed'))
+  
+  country = df_region_codes[which(df_region_codes[,1]==c),2]
+  
+  max_date <- deaths_df %>% 
+    filter(!is.na(y)) %>% 
+    select(date) %>% 
+    pull %>% 
+    max + 0.5
+  
+  p1 <- ggplot(data = df1 %>% filter(var == 'E_deaths'),
+                 aes(x=date)) +
+    theme_classic() +
+  # p1 <- p1 +
+    geom_bar(data = df2,
+             aes(x=date,
+                 y=y,
+                 fill=as.factor(status)),
+             stat = 'identity',
+             alpha=0.6,
+             color = '#878787') +
+    scale_fill_manual(name = "SARS-CoV-2:",
+                      values = rev(c('gold', 'red')),
+                      breaks = rev(c("Suspected", "Confirmed")),
+                      labels = rev(c('Sospechoso', 'Positivo')),
+                      limits = rev(levels(df2$status)),
+                      guide_legend(reverse=T)) +
+    new_scale('fill') +
+    geom_ribbon(
+      aes(ymin = y_li, 
+          ymax = y_ui,
+          fill = credibility)) +
+    scale_fill_manual(name = "Credibilidad:",
+                      values = c(alpha("deepskyblue4", 0.40),
+                                 alpha("deepskyblue4", 0.60)),
+                      guide_legend(reverse=T)) +
+    geom_vline(xintercept = max_date, 
+               col = "black", 
+               linetype = "dashed",
+               alpha = 0.5) + 
+    geom_line(
+      aes(y = y),
+      color = 'deepskyblue4') +
+    xlab("") +
+    ylab("Muertes diarias") + 
+    labs(
+      title ='Muertes diarias por SARS-CoV-2',
+      subtitle = glue::glue('{country}'),
+      caption = glue::glue('Datos hasta el día: {max_date} y predicciones para {fc} días más')
+      ) +
+    scale_x_date(date_labels = "%e %b",
+                 date_breaks = "1 week",
+                 expand = c(0,0)) +
+    scale_y_continuous(labels = scales::comma_format(accuracy = 1),
+                       n.breaks = 10)+
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "right",
+      panel.grid.major.x = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+      panel.grid.major.y = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+    ) + 
+    coord_cartesian(expand = FALSE)
+  # print(p1)  
+    
+    
+  p2 <- ggplot(data = df1 %>% filter(var == 'E_hosp'),
+               aes(x=date)) +
+    theme_classic() +
+    # p1 <- p1 +
+    geom_bar(data = df3,
+             aes(x=date,
+                 y=y,
+                 fill=as.factor(status)),
+             stat = 'identity',
+             alpha=0.6,
+             color = '#878787') +
+    scale_fill_manual(name = "SARS-CoV-2:",
+                      values = rev(c('gold', 'darkgreen')),
+                      breaks = rev(c("Suspected", "Confirmed")),
+                      labels = rev(c('Sospechoso', 'Positivo')),
+                      limits = rev(levels(df2$status)),
+                      guide_legend(reverse=T)) +
+    new_scale('fill') +
+    geom_ribbon(
+      aes(ymin = y_li, 
+          ymax = y_ui,
+          fill = credibility)) +
+    scale_fill_manual(name = "Credibilidad:",
+                      values = c(alpha("deepskyblue4", 0.40),
+                                 alpha("deepskyblue4", 0.60)),
+                      guide_legend(reverse=T)) +
+    geom_vline(xintercept = max_date, 
+               col = "black", 
+               linetype = "dashed",
+               alpha = 0.5) + 
+    geom_line(
+      aes(y = y),
+      color = 'deepskyblue4') +
+    xlab("") +
+    ylab("Hospitalizaciones") + 
+    labs(
+      title ='Hospitalizaciones diarias por SARS-CoV-2',
+      subtitle = glue::glue('{country}'),
+      caption = glue::glue('Datos hasta el día: {max_date} y predicciones para {fc} días más')
+    ) +
+    scale_x_date(date_labels = "%e %b",
+                 date_breaks = "1 week",
+                 expand = c(0,0)) +
+    scale_y_continuous(labels = scales::comma_format(accuracy = 1),
+                       n.breaks = 10)+
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "right",
+      panel.grid.major.x = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+      panel.grid.major.y = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+    ) + 
+    coord_cartesian(expand = FALSE)
+  # print(p2)  
+    
+  p3 <- ggplot(data = df1 %>% filter(var == "Rt_adj"),
+               aes(x=date)) +
+    theme_classic() +
+    # p1 <- p1 +
+    geom_ribbon(
+      aes(ymin = y_li, 
+          ymax = y_ui,
+          fill = credibility)) +
+    scale_fill_manual(name = "Credibilidad:",
+                      values = c(alpha("deepskyblue4", 0.40),
+                                 alpha("deepskyblue4", 0.60)),
+                      guide_legend(reverse=T)) +
+    geom_vline(xintercept = max_date, 
+               col = "black", 
+               linetype = "dashed",
+               alpha = 0.5) + 
+    geom_hline(yintercept = 1.0, 
+               col = "black", 
+               linetype = "solid",
+               alpha = 0.6) + 
+    geom_line(
+      aes(y = y),
+      color = 'deepskyblue4') +
+    xlab("") +
+    ylab(expression(R[t]^{adj})) +
+    labs(
+      title ='Número de reproducción ajustado',
+      subtitle = glue::glue('{country}'),
+      caption = glue::glue('Datos hasta el día: {max_date} y predicciones para {fc} días más')
+    ) +
+    scale_x_date(date_labels = "%e %b",
+                 date_breaks = "1 week",
+                 expand = c(0,0)) +
+    scale_y_continuous(labels = scales::comma_format(accuracy = 0.1),
+                       n.breaks = 10)+
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "right",
+      panel.grid.major.x = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+      panel.grid.major.y = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+    ) + 
+    coord_cartesian(expand = FALSE)
+  # print(p3)
+  
+  p4 <- ggplot(data = df1 %>% filter(var == "prediction"),
+               aes(x=date)) +
+    theme_classic() +
+    # p1 <- p1 +
+    geom_ribbon(
+      aes(ymin = y_li, 
+          ymax = y_ui,
+          fill = credibility)) +
+    scale_fill_manual(name = "Credibilidad:",
+                      values = c(alpha("darkred", 0.40),
+                                 alpha("darkred", 0.60)),
+                      guide_legend(reverse=T)) +
+    geom_vline(xintercept = max_date, 
+               col = "black", 
+               linetype = "dashed",
+               alpha = 0.5) + 
+    geom_line(
+      aes(y = y),
+      color = 'darkred') +
+    xlab("") +
+    ylab('Nuevas infecciones') +
+    labs(
+      title ='Infecciones de SARS-CoV-2 diarias',
+      subtitle = glue::glue('{country}'),
+      caption = glue::glue('Datos hasta el día: {max_date} y predicciones para {fc} días más')
+    ) +
+    scale_x_date(date_labels = "%e %b",
+                 date_breaks = "1 week",
+                 expand = c(0,0)) +
+    scale_y_continuous(labels = scales::comma_format(accuracy = 1),
+                       n.breaks = 10)+
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      legend.position = "right",
+      panel.grid.major.x = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+      panel.grid.major.y = element_line(
+        linetype = "dotted",
+        colour = "gray"),
+    ) + 
+    coord_cartesian(expand = FALSE)
+  # print(p4)
+  
+  
+  # p <- cowplot::plot_grid(p1, p2, p3, p4, ncol = 2, rel_widths = c(0.75, 0.75, 1))
+  # print(p)
+  # print('\\n')
+
+}
+
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
