@@ -175,7 +175,7 @@ pred_df_long <- pred_df %>%
 
 # Indicadores semanales por entidad federativa
 
-```{r plots, message=FALSE, warning=FALSE}
+```{r plots, message=FALSE, warning=FALSE, layout="l-screen-inset"}
 
 ################################################################################
 #################################  PLOTTING  ###################################
@@ -192,7 +192,7 @@ for (c in countries){
   df3 <- hosp_df %>% filter(country == c)
   df3$status <- factor(df3$status, levels=c('Suspected', 'Confirmed'))
   
-  country = df_region_codes[which(df_region_codes[,1]==c),2]
+  country = df_region_codes[which(df_region_codes[,2]==c),1]
   
   max_date <- deaths_df %>% 
     filter(!is.na(y)) %>% 
@@ -209,8 +209,8 @@ for (c in countries){
                  y=y,
                  fill=as.factor(status)),
              stat = 'identity',
-             alpha=0.6,
-             color = '#878787') +
+             alpha=0.6) +
+             # color = '#878787') +
     scale_fill_manual(name = "SARS-CoV-2:",
                       values = rev(c('gold', 'red')),
                       breaks = rev(c("Suspected", "Confirmed")),
@@ -256,7 +256,7 @@ for (c in countries){
         colour = "gray"),
     ) + 
     coord_cartesian(expand = FALSE)
-  # print(p1)  
+  print(p1)
     
     
   p2 <- ggplot(data = df1 %>% filter(var == 'E_hosp'),
@@ -268,8 +268,8 @@ for (c in countries){
                  y=y,
                  fill=as.factor(status)),
              stat = 'identity',
-             alpha=0.6,
-             color = '#878787') +
+             alpha=0.6) +
+             # color = '#878787') +
     scale_fill_manual(name = "SARS-CoV-2:",
                       values = rev(c('gold', 'darkgreen')),
                       breaks = rev(c("Suspected", "Confirmed")),
@@ -315,7 +315,7 @@ for (c in countries){
         colour = "gray"),
     ) + 
     coord_cartesian(expand = FALSE)
-  # print(p2)  
+  print(p2)
     
   p3 <- ggplot(data = df1 %>% filter(var == "Rt_adj"),
                aes(x=date)) +
@@ -363,7 +363,7 @@ for (c in countries){
         colour = "gray"),
     ) + 
     coord_cartesian(expand = FALSE)
-  # print(p3)
+  print(p3)
   
   p4 <- ggplot(data = df1 %>% filter(var == "prediction"),
                aes(x=date)) +
@@ -407,12 +407,12 @@ for (c in countries){
         colour = "gray"),
     ) + 
     coord_cartesian(expand = FALSE)
-  # print(p4)
+  print(p4)
   
   
-  # p <- cowplot::plot_grid(p1, p2, p3, p4, ncol = 2, rel_widths = c(0.75, 0.75, 1))
+  # p <- cowplot::plot_grid(p1, p2, p3, p4, ncol = 2, rel_widths = c(1, 1), rel_heights = c(2,2))
   # print(p)
-  # print('\\n')
+  
 
 }
 
