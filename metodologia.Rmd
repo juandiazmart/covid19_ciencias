@@ -3,7 +3,7 @@ title: "Untitled"
 description: |
   Metodología del modelo
 author:
-  - name: Juan Pilin
+  - name: Juan Díaz
     url: https://juandiazmart.com/
     affiliation: UOT
     affiliation_url: https://example.com/spacelysprokets
