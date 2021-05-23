@@ -1,0 +1,27 @@
+---
+title: "Sobre los autores"
+description: |
+  Some additional details about the website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### Dra. Ruth Selene Fuentes García.
+
+Mexicana, nacida en la CDMX, egresada de la licenciatura en Actuaría de la Facultad de Ciencias de la UNAM (1998) y de la Maestría en Ciencias Matemáticas con área de especialidad en estadística en el Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas (IIMAS, 2000). Realizó los estudios de Doctorado en Estadística en la Universidad de Bath en el Reino Unido (2005). Ha participado en la docencia desde 1999 en diversas instituciones de educación superior (Facultad de Ciencias, Colegio de México, Universidad de Bath). Actualmente es profesor  Titular “A” de tiempo completo en la Facultad de Ciencias de la UNAM.  Su área de investigación es el análisis de datos multivariados y los modelos de mezclas desde un enfoque bayesiano. En los últimos años ha participado en diversos proyectos en el área de la Educación, las Ciencias de la Tierra y las Ciencias de la Salud. Publicaciones recientes:
+
+https://academicos.fciencias.unam.mx/ruthfuentes/
+
+### Dr. Osvaldo Espin García.
+
+Osvaldo Espin Garcia es actuario por la Facultad de Ciencias de la UNAM, maestro en matemáticas con especialización en estadística y bioestadística por la Universidad de Waterloo así como doctor en bioestadística por la Universidad de Toronto. Actualmente se desempeña como principal “biostatistician” en el Departamento de Bioestadística del Princess Margaret Cancer Centre en Toronto y profesor asistente en la división de bioestadística de la Dalla Lana School of Public Health en la Universidad de Toronto. Sus áreas de investigación se enfocan en el desarrollo de métodos estadísticos aplicados a genética y genómica, diseño y análisis de estudios en dos fases, modelos de supervivencia y datos longitudinales así como modelos de regresión con clases latentes.
+
+https://www.dlsph.utoronto.ca/faculty-profile/osveg/
+
+### Dr(c). Juan Pablo Díaz Martiínez.
+
+Actuario por la Facultad de Ciencias de la UNAM. Actualmente estudia un doctorado en la Universidad de Toronto, donde realiza su investigación en modelos de clasificación en pacientes con cáncer de próstata. Asimismo es “biostatistician“en la unidad de Lupus del hospital Toronto Western. En años recientes se ha especializado en estadística Bayesiana aplicada a salud, específicamente en su uso en el aprendizaje de máquina desde un punto de vista probabilístico.
+
+https://juandiazmart.com/

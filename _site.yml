@@ -6,13 +6,15 @@ description: |
 output_dir: "docs"
 exclude: ["*.csv", "renv", "*.lock", "renv", "data"]
 navbar:
+  logo:
+    image: images/logo.png
   right:
     - text: "Indicadores semananal"
       href: index.html
-    - text: "Datos"
+    - text: "Datos y código"
       href: datos.html
-    - text: "About"
-      href: about.html
-    - text: "Metodología"
-      href: metodologia.html
+    - text: "Sobre los autores"
+      href: authors.html
+    - text: "Acerca de"
+      href: about_model.html
 output: distill::distill_article

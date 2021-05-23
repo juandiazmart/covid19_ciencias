@@ -1,0 +1,19 @@
+---
+title: "Acerca de"
+description: |
+  Some additional details about the website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+En Diciembre 2019 se identificó en Wuhan, China un nuevo coronavirus, SARS-COV-2. En enero de 2020, la OMS declaró a la pandemia ocasionada por la enfermedad que el virus ocasiona -COVID-19- una emergencia de salud pública mundial. Actualmente los rebrotes y  la aparición de diversas variantes del virus dejan claro que se requiere continuar monitoreando el desarrollo de la pandemia. 
+
+En México ha habido numerosos esfuerzos que han contribuido a entender, mitigar y controlar la evolución de la pandemia. Uno de los aspectos mas alarmantes para el país es la elevada mortalidad - México ocupa el tercer lugar a nivel mundial en número de muertes por covid.
+
+Apoyados por el proyecto financiado por CONACYT con clave 312045, denominado "Análisis de la epidemia en México, estimaciones sobre la infección y el efecto de medidas de mitigación”, nuestro grupo de trabajo ha utilizado la base de datos disponible en el Sistema Nacional de Vigilancia Epidemiológica (SISVER) a cargo de la Secretaría de Salud (SSA) para estimar el número de casos, las tasas de hospitalización y mortalidad en México a nivel estatal. Algunos aspectos que se han tomado en cuenta son los efectos de las comorbilidades, las diferencias regionales, a nivel estatal y por sector hospitalario; de los tiempos entre inicio de síntomas y hospitalización. Finalmente se ha incluido la movilidad como posible marcador de cambios en los números de reproducción. 
+
+Se propone un modelo jerárquico bayesiano que considera las hospitalizaciones diarias por estado, incluyendo tiempos estimados desde la aparición de síntomas a la hospitalización y de la hospitalización a la muerte. Estos tiempos son estimados con un modelo multiestado que considera las comorbilidades y posibles diferencias a nivel estatal y entre los sistemas de salud. Adicionalmente, se ha ajustado por retrasos en el reporte tanto de hospitalizaciones como de muertes; esto debido fundamentalmente a los retrasos en los resultados de las pruebas. Esto último se agrega imputando un número probable de casos usando un modelo autoregresivo de tercer orden, tanto para las hospitalizaciones como para las muertes. Estos números son agregados a los datos observados para cada periodo hasta 3 días anteriores al corte para la estimación.  La estimación también permite obtener los números de reproducción que han contemplado los datos de movilidad disponibles en los __Community Mobility Reports__ proporcionados por Google.
+
+El modelo resultante requiere la estimación de un gran número de parámetros que hace inviable la continua actualización; por lo tanto, los datos de está plataforma, así como las estimaciones se estarán actualizando __mensualmente__.
