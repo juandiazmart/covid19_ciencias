@@ -210,15 +210,15 @@ Finalmente el modelo asume que el número esperado de infecciones ocurren 21 dí
 
 ## Modelo multi-estado
 
-```{r echo=FALSE,fig.cap="Efectos aleatorios por estado"}
+```{r echo=FALSE,fig.cap="Efectos aleatorios por estado para el tiempo entre hospitalización y muerte"}
 knitr::include_graphics("./img/mu_l_intervalsjer2modi.png")
 ```
 
-```{r echo=FALSE,fig.cap="Efectos aleatorios por estado y sector"}
+```{r echo=FALSE,fig.cap="Efectos aleatorios por estado y sector para el tiempo entre hospitalización y muerte"}
 knitr::include_graphics("./img/mu_12_intervalsjer2modi.png")
 ```
 
-```{r echo=FALSE,fig.cap="Distribución posterior predictiva para tiempo entre hospitalización y muerte"}
+```{r echo=FALSE,fig.cap="Distribución posterior predictiva para el tiempo entre hospitalización y muerte"}
 knitr::include_graphics("./img/ppc_plot_modi_mort.png")
 ```
 
