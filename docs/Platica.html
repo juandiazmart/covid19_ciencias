@@ -1,0 +1,2889 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { color: #20794d; } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #20794d; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+  <!--radix_placeholder_meta_tags-->
+  <title>COVID-19: Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano</title>
+
+
+
+  <meta name="article:author" content="Juan P. Díaz Martínez"/>
+  <meta name="article:author" content="Ruth S. Fuentes García"/>
+  <meta name="article:author" content="Osvaldo Espin-Garcia"/>
+  <meta name="article:author" content="Marco A. Gallegos Herrada"/>
+  <meta name="article:author" content="Mayra A. Gutierrez García"/>
+  <meta name="article:author" content="Karen J. Orozco Becerril"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="COVID-19: Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:site_name" content="COVID-19"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="COVID-19: Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  
+  <meta name="citation_reference" content="citation_title=Estimating the effects of non-pharmaceutical interventions on COVID-19 in Europe;citation_publication_date=2020;citation_volume=584;citation_doi=10.1038/s41586-020-2405-7;citation_issn=14764687;citation_author=Seth Flaxman;citation_author=Swapnil Mishra;citation_author=Axel Gandy;citation_author=H. Juliette T. Unwin;citation_author=Thomas A. Mellan;citation_author=Helen Coupland;citation_author=Charles Whittaker;citation_author=Harrison Zhu;citation_author=Tresnia Berah;citation_author=Jeffrey W. Eaton;citation_author=Mélodie Monod;citation_author=Pablo N. Perez-Guzman;citation_author=Nora Schmit;citation_author=Lucia Cilloni;citation_author=Kylie E. C. Ainslie;citation_author=Marc Baguelin;citation_author=Adhiratha Boonyasiri;citation_author=Olivia Boyd;citation_author=Lorenzo Cattarino;citation_author=Laura V. Cooper;citation_author=Zulma Cucunubá;citation_author=Gina Cuomo-Dannenburg;citation_author=Amy Dighe;citation_author=Bimandra Djaafara;citation_author=Ilaria Dorigatti;citation_author=Sabine L. Elsland;citation_author=Richard G. FitzJohn;citation_author=Katy A. M. Gaythorpe;citation_author=Lily Geidelberg;citation_author=Nicholas C. Grassly;citation_author=William D. Green;citation_author=Timothy Hallett;citation_author=Arran Hamlet;citation_author=Wes Hinsley;citation_author=Ben Jeffrey;citation_author=Edward Knock;citation_author=Daniel J. Laydon;citation_author=Gemma Nedjati-Gilani;citation_author=Pierre Nouvellet;citation_author=Kris V. Parag;citation_author=Igor Siveroni;citation_author=Hayley A. Thompson;citation_author=Robert Verity;citation_author=Erik Volz;citation_author=Caroline E. Walters;citation_author=Haowei Wang;citation_author=Yuanrong Wang;citation_author=Oliver J. Watson;citation_author=Peter Winskill;citation_author=Xiaoyue Xi;citation_author=Patrick G. T. Walker;citation_author=Azra C. Ghani;citation_author=Christl A. Donnelly;citation_author=Steven Riley;citation_author=Michaela A. C. Vollmer;citation_author=Neil M. Ferguson;citation_author=Lucy C. Okell;citation_author=Samir Bhatt"/>
+  <meta name="citation_reference" content="citation_title=Report 21: Estimating COVID-19 cases and reproduction number in Brazil;citation_publication_date=2020;citation_author=Thomas A Mellan;citation_author=Henrique H Hoeltgebaum;citation_author=Swapnil Mishra;citation_author=Charlie Whittaker;citation_author=Ricardo P Schnekenberg;citation_author=Axel Gandy;citation_author=H Juliette T Unwin;citation_author=Michaela A C Vollmer;citation_author=Helen Coupland;citation_author=Iwona Hawryluk;citation_author=Nuno Rodrigues Faria;citation_author=Juan Vesga;citation_author=Harrison Zhu;citation_author=Michael Hutchinson;citation_author=Oliver Ratmann;citation_author=Melodie Monod;citation_author=Kylie Ainslie;citation_author=Marc Baguelin;citation_author=Sangeeta Bhatia;citation_author=Adhiratha Boonyasiri;citation_author=Nicholas Brazeau;citation_author=Giovanni Charles;citation_author=Laura V Cooper;citation_author=Zulma Cucunuba;citation_author=Gina Cuomo-Dannenburg;citation_author=Amy Dighe;citation_author=Bimandra Djaafara;citation_author=Jeff Eaton;citation_author=Sabine L Elsland;citation_author=Richard FitzJohn;citation_author=Keith Fraser;citation_author=Katy Gaythorpe;citation_author=Will Green;citation_author=Sarah Hayes;citation_author=Natsuko Imai;citation_author=Ben Jeffrey;citation_author=Edward Knock;citation_author=Daniel Laydon;citation_author=John Lees;citation_author=Tara Mangal;citation_author=Andria Mousa;citation_author=Gemma Nedjati-Gilani;citation_author=Pierre Nouvellet;citation_author=Daniela Olivera;citation_author=Kris V Parag;citation_author=Michael Pickles;citation_author=Hayley A Thompson;citation_author=Robert Verity;citation_author=Caroline Walters;citation_author=Haowei Wang;citation_author=Yuanrong Wang;citation_author=Oliver J Watson;citation_author=Lilith Whittles;citation_author=Xiaoyue Xi;citation_author=Lucy Okell;citation_author=Ilaria Dorigatti;citation_author=Patrick Walker;citation_author=Azra Ghani;citation_author=Steven M Riley;citation_author=Neil M Ferguson;citation_author=Christl A Donnelly;citation_author=Seth Flaxman;citation_author=Samir Bhatt"/>
+  <meta name="citation_reference" content="citation_title=Report 23: State-level tracking of COVID-19 in the United States;citation_publication_date=2020;citation_author=H Juliette T Unwin;citation_author=Swapnil Mishra;citation_author=Valerie C Bradley;citation_author=Axel Gandy;citation_author=Michaela A C Vollmer;citation_author=Thomas Mellan;citation_author=Kylie Ainslie;citation_author=Charlie Whittaker;citation_author=Jonathan Ish-horowicz;citation_author=Sarah Filippi;citation_author=Xiaoyue Xi;citation_author=Melodie Monod;citation_author=Michael Hutchinson;citation_author=Fabian Valka;citation_author=Harrison Zhu;citation_author=Iwona Hawryluk;citation_author=Philip Milton;citation_author=Marc Baguelin;citation_author=Nick Brazeau;citation_author=Lorenzo Cattarino;citation_author=Giovanni Charles;citation_author=Laura V Cooper;citation_author=Zulma Cucunuba;citation_author=Gina Cuomo-;citation_author=Bimandra Djaafara;citation_author=Ilaria Dorigatti;citation_author=Oliver J Eales;citation_author=Jeff Eaton;citation_author=Sabine Van Elsland;citation_author=Richard Fitzjohn;citation_author=William Green;citation_author=Timothy Hallett;citation_author=Wes Hinsley;citation_author=Natsuko Imai;citation_author=Ben Jeffrey;citation_author=Edward Knock;citation_author=Daniel Laydon;citation_author=Gemma Nedjati-gilani;citation_author=Pierre Nouvellet;citation_author=Lucy Okell;citation_author=Alison Ower;citation_author=Kris V Parag;citation_author=Igor Siveroni;citation_author=Hayley A Thompson;citation_author=Robert Verity;citation_author=Patrick Walker;citation_author=Caroline Walters;citation_author=Yuanrong Wang;citation_author=Oliver J Watson;citation_author=Lilith Whittles;citation_author=Azra Ghani;citation_author=M Neil"/>
+  <meta name="citation_reference" content="citation_title=Estimates of the severity of coronavirus disease 2019: a model-based analysis;citation_publication_date=2020;citation_volume=20;citation_doi=10.1016/S1473-3099(20)30243-7;citation_issn=14744457;citation_author=Robert Verity;citation_author=Lucy C. Okell;citation_author=Ilaria Dorigatti;citation_author=Peter Winskill;citation_author=Charles Whittaker;citation_author=Natsuko Imai;citation_author=Gina Cuomo-Dannenburg;citation_author=Hayley Thompson;citation_author=Patrick G. T. Walker;citation_author=Han Fu;citation_author=Amy Dighe;citation_author=Jamie T. Griffin;citation_author=Marc Baguelin;citation_author=Sangeeta Bhatia;citation_author=Adhiratha Boonyasiri;citation_author=Anne Cori;citation_author=Zulma Cucunubá;citation_author=Rich FitzJohn;citation_author=Katy Gaythorpe;citation_author=Will Green;citation_author=Arran Hamlet;citation_author=Wes Hinsley;citation_author=Daniel Laydon;citation_author=Gemma Nedjati-Gilani;citation_author=Steven Riley;citation_author=Sabine Elsland;citation_author=Erik Volz;citation_author=Haowei Wang;citation_author=Yuanrong Wang;citation_author=Xiaoyue Xi;citation_author=Christl A. Donnelly;citation_author=Azra C. Ghani;citation_author=Neil M. Ferguson"/>
+  <meta name="citation_reference" content="citation_title=Epidemiology and transmission of COVID-19 in 391 cases and 1286 of their close contacts in Shenzhen, China: a retrospective cohort study;citation_publication_date=2020;citation_volume=20;citation_doi=10.1016/S1473-3099(20)30287-5;citation_issn=14744457;citation_author=Qifang Bi;citation_author=Yongsheng Wu;citation_author=Shujiang Mei;citation_author=Chenfei Ye;citation_author=Xuan Zou;citation_author=Zhen Zhang;citation_author=Xiaojian Liu;citation_author=Lan Wei;citation_author=Shaun A. Truelove;citation_author=Tong Zhang;citation_author=Wei Gao;citation_author=Cong Cheng;citation_author=Xiujuan Tang;citation_author=Xiaoliang Wu;citation_author=Yu Wu;citation_author=Binbin Sun;citation_author=Suli Huang;citation_author=Yu Sun;citation_author=Juncen Zhang;citation_author=Ting Ma;citation_author=Justin Lessler;citation_author=Tiejian Feng"/>
+  <meta name="citation_reference" content="citation_title=The reproductive number of COVID-19 is higher compared to SARS coronavirus;citation_publication_date=2020;citation_volume=27;citation_doi=10.1093/jtm/taaa021;citation_issn=17088305;citation_author=Ying Liu;citation_author=Albert A. Gayle;citation_author=Annelies Wilder-Smith;citation_author=Joacim Rocklöv"/>
+  <meta name="citation_reference" content="citation_title=Google COVID-19 community mobility reports: Anonymization process description (version 1.0);citation_publication_date=2020;citation_author=Ahmet Aktay;citation_author=Shailesh Bavadekar;citation_author=Gwen Cossoul;citation_author=John Davis;citation_author=Damien Desfontaines;citation_author=Alex Fabrikant;citation_author=Evgeniy Gabrilovich;citation_author=Krishna Gadepalli;citation_author=Bryant Gipson;citation_author=Miguel Guevara;citation_author=Chaitanya Kamath;citation_author=Mansi Kansal;citation_author=Ali Lange;citation_author=Chinmoy Mandayam;citation_author=Andrew Oplinger;citation_author=Christopher Pluntke;citation_author=Thomas Roessler;citation_author=Arran Schlosberg;citation_author=Tomer Shekel;citation_author=Swapnil Vispute;citation_author=Mia Vu;citation_author=Gregory Wellenius;citation_author=Brian Williams;citation_author=Royce J. Wilson"/>
+  <meta name="citation_reference" content="citation_title=Stan: A probabilistic programming language.;citation_publication_date=2017;citation_publisher=ERIC;citation_volume=76;citation_author=Bob Carpenter;citation_author=Andrew Gelman;citation_author=Matthew D Hoffman;citation_author=Daniel Lee;citation_author=Ben Goodrich;citation_author=Michael Betancourt;citation_author=Marcus A Brubaker;citation_author=Jiqiang Guo;citation_author=Peter Li;citation_author=Allen Riddell"/>
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","output","csl","bibliography","header-includes"]}},"value":[{"type":"character","attributes":{},"value":["Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Juan P. Díaz Martínez"]},{"type":"character","attributes":{},"value":["Instute of Health Policy, Management & Evaluation, University of Toronto"]},{"type":"character","attributes":{},"value":["https://juandiazmart.com"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Ruth S. Fuentes García"]},{"type":"character","attributes":{},"value":["Facultad de Ciencias, UNAM"]},{"type":"character","attributes":{},"value":["https://academicos.fciencias.unam.mx/ruthfuentes/"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Osvaldo Espin-Garcia"]},{"type":"character","attributes":{},"value":["Dalla Lana School of Public Health, University of Toronto"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Marco A. Gallegos Herrada"]},{"type":"character","attributes":{},"value":["Facultad de Ciencias, UNAM"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Mayra A. Gutierrez García"]},{"type":"character","attributes":{},"value":["Facultad de Ciencias, UNAM"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Karen J. Orozco Becerril"]},{"type":"character","attributes":{},"value":["Facultad de Ciencias, UNAM"]}]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_depth"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[3]}]}]},{"type":"character","attributes":{},"value":["ref/apa.csl"]},{"type":"character","attributes":{},"value":["ref/references_UTF8.bib"]},{"type":"character","attributes":{},"value":["\\usepackage{bm}"]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  <!--radix_placeholder_navigation_in_header-->
+  <meta name="distill:offset" content=""/>
+
+  <script type="application/javascript">
+
+    window.headroom_prevent_pin = false;
+
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+
+      // initialize headroom for banner
+      var header = $('header').get(0);
+      var headerHeight = header.offsetHeight;
+      var headroom = new Headroom(header, {
+        tolerance: 5,
+        onPin : function() {
+          if (window.headroom_prevent_pin) {
+            window.headroom_prevent_pin = false;
+            headroom.unpin();
+          }
+        }
+      });
+      headroom.init();
+      if(window.location.hash)
+        headroom.unpin();
+      $(header).addClass('headroom--transition');
+
+      // offset scroll location for banner on hash change
+      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+      window.addEventListener("hashchange", function(event) {
+        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+      });
+
+      // responsive menu
+      $('.distill-site-header').each(function(i, val) {
+        var topnav = $(this);
+        var toggle = topnav.find('.nav-toggle');
+        toggle.on('click', function() {
+          topnav.toggleClass('responsive');
+        });
+      });
+
+      // nav dropdowns
+      $('.nav-dropbtn').click(function(e) {
+        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+        $(this).parent().siblings('.nav-dropdown')
+           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $("body").click(function(e){
+        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+      });
+      $(".nav-dropdown").click(function(e){
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <style type="text/css">
+
+  /* Theme (user-documented overrideables for nav appearance) */
+
+  .distill-site-nav {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0F2E3D;
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  .distill-site-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .distill-site-nav a:hover {
+    color: white;
+  }
+
+  @media print {
+    .distill-site-nav {
+      display: none;
+    }
+  }
+
+  .distill-site-header {
+
+  }
+
+  .distill-site-footer {
+
+  }
+
+
+  /* Site Header */
+
+  .distill-site-header {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 3;
+  }
+
+  .distill-site-header .nav-left {
+    display: inline-block;
+    margin-left: 8px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header .nav-left {
+      margin-left: 0;
+    }
+  }
+
+
+  .distill-site-header .nav-right {
+    float: right;
+    margin-right: 8px;
+  }
+
+  .distill-site-header a,
+  .distill-site-header .title {
+    display: inline-block;
+    text-align: center;
+    padding: 14px 10px 14px 10px;
+  }
+
+  .distill-site-header .title {
+    font-size: 18px;
+    min-width: 150px;
+  }
+
+  .distill-site-header .logo {
+    padding: 0;
+  }
+
+  .distill-site-header .logo img {
+    display: none;
+    max-height: 20px;
+    width: auto;
+    margin-bottom: -4px;
+  }
+
+  .distill-site-header .nav-image img {
+    max-height: 18px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: -3px;
+  }
+
+
+
+  @media screen and (min-width: 1000px) {
+    .distill-site-header .logo img {
+      display: inline-block;
+    }
+    .distill-site-header .nav-left {
+      margin-left: 20px;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 20px;
+    }
+    .distill-site-header .title {
+      padding-left: 12px;
+    }
+  }
+
+
+  .distill-site-header .nav-toggle {
+    display: none;
+  }
+
+  .nav-dropdown {
+    display: inline-block;
+    position: relative;
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 16px 10px;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    margin-top: 1px;
+    z-index: 2;
+  }
+
+  .nav-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    margin-top: 2px;
+    white-space: nowrap;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+
+  .nav-dropdown-content hr {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-dropdown-active {
+    display: block;
+  }
+
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+    color: black;
+    padding: 6px 24px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  .nav-dropdown-content .nav-dropdown-header {
+    display: block;
+    padding: 5px 24px;
+    padding-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #999999;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown:hover .nav-dropbtn {
+    color: white;
+  }
+
+  .nav-dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .nav-right .nav-dropdown-content {
+    margin-left: -45%;
+    right: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+    .distill-site-header a.nav-toggle {
+      float: right;
+      display: block;
+    }
+    .distill-site-header .title {
+      margin-left: 0;
+    }
+    .distill-site-header .nav-right {
+      margin-right: 0;
+    }
+    .distill-site-header {
+      overflow: hidden;
+    }
+    .nav-right .nav-dropdown-content {
+      margin-left: 0;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-header.responsive {position: relative; min-height: 500px; }
+    .distill-site-header.responsive a.nav-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .distill-site-header.responsive a,
+    .distill-site-header.responsive .nav-dropdown {
+      display: block;
+      text-align: left;
+    }
+    .distill-site-header.responsive .nav-left,
+    .distill-site-header.responsive .nav-right {
+      width: 100%;
+    }
+    .distill-site-header.responsive .nav-dropdown {float: none;}
+    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+      display: block;
+      width: 100%;
+      text-align: left;
+    }
+  }
+
+  /* Site Footer */
+
+  .distill-site-footer {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    z-index: 3;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+  }
+
+  /* Headroom */
+
+  d-title {
+    padding-top: 6rem;
+  }
+
+  @media print {
+    d-title {
+      padding-top: 4rem;
+    }
+  }
+
+  .headroom {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .headroom--transition {
+    transition: all .4s ease-in-out;
+  }
+
+  .headroom--unpinned {
+    top: -100px;
+  }
+
+  .headroom--pinned {
+    top: 0;
+  }
+
+  /* adjust viewport for navbar height */
+  /* helps vertically center bootstrap (non-distill) content */
+  .min-vh-100 {
+    min-height: calc(100vh - 100px) !important;
+  }
+
+  </style>
+
+  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
+  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
+  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
+
+  <script type="application/javascript">
+
+  function getMeta(metaName) {
+    var metas = document.getElementsByTagName('meta');
+    for (let i = 0; i < metas.length; i++) {
+      if (metas[i].getAttribute('name') === metaName) {
+        return metas[i].getAttribute('content');
+      }
+    }
+    return '';
+  }
+
+  function offsetURL(url) {
+    var offset = getMeta('distill:offset');
+    return offset ? offset + '/' + url : url;
+  }
+
+  function createFuseIndex() {
+
+    // create fuse index
+    var options = {
+      keys: [
+        { name: 'title', weight: 20 },
+        { name: 'categories', weight: 15 },
+        { name: 'description', weight: 10 },
+        { name: 'contents', weight: 5 },
+      ],
+      ignoreLocation: true,
+      threshold: 0
+    };
+    var fuse = new window.Fuse([], options);
+
+    // fetch the main search.json
+    return fetch(offsetURL('search.json'))
+      .then(function(response) {
+        if (response.status == 200) {
+          return response.json().then(function(json) {
+            // index main articles
+            json.articles.forEach(function(article) {
+              fuse.add(article);
+            });
+            // download collections and index their articles
+            return Promise.all(json.collections.map(function(collection) {
+              return fetch(offsetURL(collection)).then(function(response) {
+                if (response.status === 200) {
+                  return response.json().then(function(articles) {
+                    articles.forEach(function(article) {
+                      fuse.add(article);
+                    });
+                  })
+                } else {
+                  return Promise.reject(
+                    new Error('Unexpected status from search index request: ' +
+                              response.status)
+                  );
+                }
+              });
+            })).then(function() {
+              return fuse;
+            });
+          });
+
+        } else {
+          return Promise.reject(
+            new Error('Unexpected status from search index request: ' +
+                        response.status)
+          );
+        }
+      });
+  }
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // get search element (bail if we don't have one)
+    var searchEl = window.document.getElementById('distill-search');
+    if (!searchEl)
+      return;
+
+    createFuseIndex()
+      .then(function(fuse) {
+
+        // make search box visible
+        searchEl.classList.remove('hidden');
+
+        // initialize autocomplete
+        var options = {
+          autoselect: true,
+          hint: false,
+          minLength: 2,
+        };
+        window.autocomplete(searchEl, options, [{
+          source: function(query, callback) {
+            const searchOptions = {
+              isCaseSensitive: false,
+              shouldSort: true,
+              minMatchCharLength: 2,
+              limit: 10,
+            };
+            var results = fuse.search(query, searchOptions);
+            callback(results
+              .map(function(result) { return result.item; })
+            );
+          },
+          templates: {
+            suggestion: function(suggestion) {
+              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
+                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
+                : '';
+              var html = `
+                <div class="search-item">
+                  <h3>${suggestion.title}</h3>
+                  <div class="search-item-description">
+                    ${suggestion.description || ''}
+                  </div>
+                  <div class="search-item-preview">
+                    ${img}
+                  </div>
+                </div>
+              `;
+              return html;
+            }
+          }
+        }]).on('autocomplete:selected', function(event, suggestion) {
+          window.location.href = offsetURL(suggestion.path);
+        });
+        // remove inline display style on autocompleter (we want to
+        // manage responsive display via css)
+        $('.algolia-autocomplete').css("display", "");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+  });
+
+  </script>
+
+  <style type="text/css">
+
+  .nav-search {
+    font-size: x-small;
+  }
+
+  /* Algolioa Autocomplete */
+
+  .algolia-autocomplete {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: sub;
+    background-color: white;
+    color: black;
+    padding: 6px;
+    padding-top: 8px;
+    padding-bottom: 0;
+    border-radius: 6px;
+    border: 1px #0F2E3D solid;
+    width: 180px;
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .distill-site-nav .algolia-autocomplete {
+      display: none;
+      visibility: hidden;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete {
+      display: inline-block;
+      visibility: visible;
+    }
+    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
+      margin-left: 0;
+      width: 400px;
+      max-height: 400px;
+    }
+  }
+
+  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
+    width: 90%;
+    outline: none;
+    border: none;
+  }
+
+  .algolia-autocomplete .aa-hint {
+    color: #999;
+  }
+  .algolia-autocomplete .aa-dropdown-menu {
+    width: 550px;
+    max-height: 70vh;
+    overflow-x: visible;
+    overflow-y: scroll;
+    padding: 5px;
+    margin-top: 3px;
+    margin-left: -150px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #999;
+    border-top: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
+    cursor: pointer;
+    padding: 5px 4px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
+    overflow: hidden;
+    font-size: 0.8em;
+    line-height: 1.4em;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
+    font-size: 1rem;
+    margin-block-start: 0;
+    margin-block-end: 5px;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
+    display: inline-block;
+    overflow: hidden;
+    height: 2.8em;
+    width: 80%;
+    margin-right: 4%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
+    display: inline-block;
+    width: 15%;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
+    height: 3em;
+    width: auto;
+    display: none;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
+    display: initial;
+  }
+
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
+    background-color: #eee;
+  }
+  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  </style>
+
+
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #0F2E3D;
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base variables */
+
+  /* Edit the CSS properties in this file to create a custom
+     Distill theme. Only edit values in the right column
+     for each row; values shown are the CSS defaults.
+     To return any property to the default,
+     you may set its value to: unset
+     All rows must end with a semi-colon.                      */
+
+  /* Optional: embed custom fonts here with `@import`          */
+  /* This must remain at the top of this file.                 */
+
+
+
+  html {
+    /*-- Main font sizes --*/
+    --title-size:      50px;
+    --body-size:       1.06rem;
+    --code-size:       14px;
+    --aside-size:      12px;
+    --fig-cap-size:    13px;
+    /*-- Main font colors --*/
+    --title-color:     #000000;
+    --header-color:    rgba(0, 0, 0, 0.8);
+    --body-color:      rgba(0, 0, 0, 0.8);
+    --aside-color:     rgba(0, 0, 0, 0.6);
+    --fig-cap-color:   rgba(0, 0, 0, 0.6);
+    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --heading-font:    sans-serif;
+    --mono-font:       monospace;
+    --body-font:       sans-serif;
+    --navbar-font:     sans-serif;  /* websites + blogs only */
+  }
+
+  /*-- ARTICLE METADATA --*/
+  d-byline {
+    --heading-size:    0.6rem;
+    --heading-color:   rgba(0, 0, 0, 0.5);
+    --body-size:       0.8rem;
+    --body-color:      rgba(0, 0, 0, 0.8);
+  }
+
+  /*-- ARTICLE TABLE OF CONTENTS --*/
+  .d-contents {
+    --heading-size:    18px;
+    --contents-size:   13px;
+  }
+
+  /*-- ARTICLE APPENDIX --*/
+  d-appendix {
+    --heading-size:    15px;
+    --heading-color:   rgba(0, 0, 0, 0.65);
+    --text-size:       0.8em;
+    --text-color:      rgba(0, 0, 0, 0.5);
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  /* These properties only apply to Distill sites and blogs  */
+
+  .distill-site-header {
+    --title-size:       18px;
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #15427a; /*-- EDITED --*/
+  }
+
+  .distill-site-footer {
+    --text-color:       rgba(255, 255, 255, 0.8);
+    --text-size:        15px;
+    --hover-color:      white;
+    --bkgd-color:       #15427a; /*-- EDITED --*/
+  }
+
+  /*-- Additional custom styles --*/
+  /* Add any additional CSS rules below                      */
+  </style>
+  <style type="text/css">
+  /* base style */
+
+  /* FONT FAMILIES */
+
+  :root {
+    --heading-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono-default: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    --body-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  body,
+  .posts-list .post-preview p,
+  .posts-list .description p {
+    font-family: var(--body-font), var(--body-default);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .posts-list .post-preview h2,
+  .posts-list .description h2 {
+    font-family: var(--heading-font), var(--heading-default);
+  }
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: var(--mono-font), var(--mono-default);
+  }
+
+
+  /*-- TITLE --*/
+  d-title h1,
+  .posts-list > h1 {
+    color: var(--title-color, black);
+  }
+
+  d-title h1 {
+    font-size: var(--title-size, 50px);
+  }
+
+  /*-- HEADERS --*/
+  d-article h1,
+  d-article h2,
+  d-article h3,
+  d-article h4,
+  d-article h5,
+  d-article h6 {
+    color: var(--header-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- BODY --*/
+  d-article > p,  /* only text inside of <p> tags */
+  d-article > ul, /* lists */
+  d-article > ol {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+    font-size: var(--body-size, 1.06rem);
+  }
+
+
+  /*-- CODE --*/
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-size: var(--code-size, 14px);
+  }
+
+  /*-- ASIDE --*/
+  d-article aside {
+    font-size: var(--aside-size, 12px);
+    color: var(--aside-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- FIGURE CAPTIONS --*/
+  figure .caption,
+  figure figcaption,
+  .figure .caption {
+    font-size: var(--fig-cap-size, 13px);
+    color: var(--fig-cap-color, rgba(0, 0, 0, 0.6));
+  }
+
+  /*-- METADATA --*/
+  d-byline h3 {
+    font-size: var(--heading-size, 0.6rem);
+    color: var(--heading-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-byline {
+    font-size: var(--body-size, 0.8rem);
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  d-byline a,
+  d-article d-byline a {
+    color: var(--body-color, rgba(0, 0, 0, 0.8));
+  }
+
+  /*-- TABLE OF CONTENTS --*/
+  .d-contents nav h3 {
+    font-size: var(--heading-size, 18px);
+  }
+
+  .d-contents nav a {
+    font-size: var(--contents-size, 13px);
+  }
+
+  /*-- APPENDIX --*/
+  d-appendix h3 {
+    font-size: var(--heading-size, 15px);
+    color: var(--heading-color, rgba(0, 0, 0, 0.65));
+  }
+
+  d-appendix {
+    font-size: var(--text-size, 0.8em);
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  d-appendix d-footnote-list a.footnote-backlink {
+    color: var(--text-color, rgba(0, 0, 0, 0.5));
+  }
+
+  /*-- WEBSITE HEADER + FOOTER --*/
+  .distill-site-header .title {
+    font-size: var(--title-size, 18px);
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .distill-site-header a,
+  .nav-dropdown .nav-dropbtn {
+    font-family: var(--navbar-font), var(--heading-default);
+  }
+
+  .nav-dropdown .nav-dropbtn {
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    font-size: var(--text-size, 15px);
+  }
+
+  .distill-site-header a:hover,
+  .nav-dropdown:hover .nav-dropbtn {
+    color: var(--hover-color, white);
+  }
+
+  .distill-site-header {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer {
+    font-size: var(--text-size, 15px);
+    color: var(--text-color, rgba(255, 255, 255, 0.8));
+    background-color: var(--bkgd-color, #0F2E3D);
+  }
+
+  .distill-site-footer a:hover {
+    color: var(--hover-color, white);
+  }</style>
+  <!--/radix_placeholder_distill-->
+  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
+  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
+  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano","authors":[{"author":"Juan P. Díaz Martínez","authorURL":"#","affiliation":"Instute of Health Policy, Management & Evaluation, University of Toronto","affiliationURL":"https://juandiazmart.com","orcidID":""},{"author":"Ruth S. Fuentes García","authorURL":"#","affiliation":"Facultad de Ciencias, UNAM","affiliationURL":"https://academicos.fciencias.unam.mx/ruthfuentes/","orcidID":""},{"author":"Osvaldo Espin-Garcia","authorURL":"#","affiliation":"Dalla Lana School of Public Health, University of Toronto","affiliationURL":"#","orcidID":""},{"author":"Marco A. Gallegos Herrada","authorURL":"#","affiliation":"Facultad de Ciencias, UNAM","affiliationURL":"#","orcidID":""},{"author":"Mayra A. Gutierrez García","authorURL":"#","affiliation":"Facultad de Ciencias, UNAM","affiliationURL":"#","orcidID":""},{"author":"Karen J. Orozco Becerril","authorURL":"#","affiliation":"Facultad de Ciencias, UNAM","affiliationURL":"#","orcidID":""}]}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a class="logo">
+<img src="images/logo.png" alt="Logo"/>
+</a>
+<a href="index.html" class="title">COVID-19</a>
+</div>
+<div class="nav-right">
+<a href="index.html">Indicadores semananal</a>
+<a href="datos.html">Datos y código</a>
+<a href="Platica.html">Artículo</a>
+<a href="authors.html">Sobre los autores</a>
+<a href="about_model.html">Acerca de</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Análisis de la epidemia por SARS-CoV-2 en México, estimaciones sobre la infección y el efecto de la movilidad mediante un modelo jerárquico bayesiano</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+
+</div>
+
+<div class="d-byline">
+  Juan P. Díaz Martínez  (Instute of Health Policy, Management &amp; Evaluation, University of Toronto)<a href="https://juandiazmart.com" class="uri">https://juandiazmart.com</a>
+  
+,   Ruth S. Fuentes García  (Facultad de Ciencias, UNAM)<a href="https://academicos.fciencias.unam.mx/ruthfuentes/" class="uri">https://academicos.fciencias.unam.mx/ruthfuentes/</a>
+  
+,   Osvaldo Espin-Garcia  (Dalla Lana School of Public Health, University of Toronto)
+  
+,   Marco A. Gallegos Herrada  (Facultad de Ciencias, UNAM)
+  
+,   Mayra A. Gutierrez García  (Facultad de Ciencias, UNAM)
+  
+,   Karen J. Orozco Becerril  (Facultad de Ciencias, UNAM)
+  
+
+</div>
+
+<div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#fuente-de-financiamiento">Fuente de financiamiento</a></li>
+<li><a href="#introducción">Introducción</a></li>
+<li><a href="#métodos">Métodos</a>
+<ul>
+<li><a href="#caracterización-del-modelo">Caracterización del modelo</a>
+<ul>
+<li><a href="#muertes-y-hospitalizaciones-observadas">Muertes y hospitalizaciones observadas</a></li>
+<li><a href="#modelado-y-dependencia-entre-muertes-y-hospitalizaciones">Modelado y dependencia entre muertes y hospitalizaciones</a></li>
+<li><a href="#modelado-de-las-infecciones">Modelado de las infecciones</a></li>
+<li><a href="#número-efectivo-de-reproducción">Número efectivo de reproducción</a></li>
+</ul></li>
+<li><a href="#estadística-computacional">Estadística computacional</a></li>
+</ul></li>
+<li><a href="#resultados">Resultados</a>
+<ul>
+<li><a href="#modelo-multi-estado">Modelo multi-estado</a></li>
+<li><a href="#imputación-de-muertes-y-hospitalizaciones">Imputación de muertes y hospitalizaciones</a></li>
+<li><a href="#modelo-epidemiológico">Modelo epidemiológico</a></li>
+</ul></li>
+<li><a href="#limitaciones">Limitaciones</a></li>
+</ul>
+</nav>
+</div>
+<h1 id="fuente-de-financiamiento">Fuente de financiamiento</h1>
+<p>El proyecto fue financiado mediante el proyecto 312045 otorgado por el CONACYT.</p>
+<h1 id="introducción">Introducción</h1>
+<p>Muchos de los modelos epidemiológicos se basan en la incidencia de casos confirmados para poder hacer estimaciones y/o proyecciones de diferentes desenlaces en salud, ya sea mortalidad, hospitalizaciones, intubaciones, etc. Sin embargo, una de las grandes limitaciones de estos modelos es que no consideran el tiempo que pasa entre el momento de la infección y el momento que la prueba resulta positiva. Una consecuencia de este desfase es que los casos confirmados que se presentan día a día son en realidad los casos que se infectaron hace 2 semanas o más. Adicionalmente, el sistema de vigilancia en México no realiza pruebas a aquellos que no cumplen la definición operacional, implicando que este sistema no logra capturar a todas las personas asintomáticas.</p>
+<p>Uno de los modelos epidemiológicos fue propuesto por el <a href="https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/">Imperial College de Reino Unido</a>, el cual originalmente estimó el número esperado de muertes, el número esperado de infecciones, el número efectivo de reproducción (<span class="math inline">\(R_0\)</span> y <span class="math inline">\(R_t\)</span>) y el impacto que han tenido distintas medidas de mitigación en <span class="math inline">\(R_t\)</span>. <strong>Este modelo se diferencia de los demás ya que aprende solamente de las muertes observadas</strong>. Versiones más recientes de este modelo incluyeron el efecto de la <a href="https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-23-united-states/">movilidad</a> en <span class="math inline">\(R_t\)</span>.</p>
+<p>Utilizando la base de datos disponible en el Sistema Nacional de Vigilancia Epidemiológica (SISVER) a cargo de la Secretaría de Salud (SSA), utilizamos un modelo jerárquico con enfoque Bayesiano basado en el modelo del Imperial College con algunas diferencias:</p>
+<ol type="1">
+<li>Inclusión de hospitalizaciones - Adicionado a las muertes observadas, nuestro modelo aprende también de las hospitalizaciones observadas.</li>
+<li>Inclusión de los efectos de comorbilidades así como diferencias regionales - Para tomar en cuenta el transcurso natural de la enfermedad, desarrollamos un modelo multi-nivel multi-estado (ver <a href="https://www.medrxiv.org/content/10.1101/2021.05.24.21257752v1">preprint</a>). Este modelo permite obtener información sobre los tiempos entre síntomas-hospitalización y hospitalización-muerte, por entidad federativa y por sector de atención.</li>
+<li>Imputación de muertes y hospitalizaciones por retrasos en SISVER - Tomando en cuenta el porcentaje de positividad por entidad federativa a través del tiempo, estimamos un modelo autoregresivo de tercer orden <span class="math inline">\(AR(3)\)</span> para poder modelar este porcentaje con el fin de incluir una parte de los casos sospechosos en nuestas muertes y hospitalizaciones observadas.</li>
+</ol>
+<h1 id="métodos">Métodos</h1>
+<h2 id="caracterización-del-modelo">Caracterización del modelo</h2>
+<p>Primero describiremos el modelo propuesto por <span class="citation" data-cites="Flaxman2020"><a href="#ref-Flaxman2020" role="doc-biblioref">Flaxman et al.</a> (<a href="#ref-Flaxman2020" role="doc-biblioref">2020</a>)</span>. Asimimismo, describiremos nuestras modificaciones previamente mencionadas. La Figura <a href="#fig:DAG1">1</a> muestra la relación entre todos los parámetros de nuestro modelo:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:DAG1"></span>
+<img src="img/epi.png" alt="Grafo acíclico dirigido" width="338" />
+<p class="caption">
+Figure 1: Grafo acíclico dirigido
+</p>
+</div>
+</div>
+<h3 id="muertes-y-hospitalizaciones-observadas">Muertes y hospitalizaciones observadas</h3>
+<p>Denotemos a <span class="math inline">\(D_{t,m}\)</span> como el número de muertes observadas al día <span class="math inline">\(t\)</span> para la entidad federativa <span class="math inline">\(m\)</span>; <span class="math inline">\(t\in{1,\dots,n}\)</span> y <span class="math inline">\(m={1,\ldots,32}\)</span>. El modelo asume que <span class="math inline">\(D_{t,m}\)</span> proviene de una distribución binomal negativa tal que:</p>
+<p><span class="math display">\[
+D_{t,m} \sim \text{NegBin}\Big(d_{t,m},d_{t,m}+\frac{d_{t,m}^2}{|\Psi|}\Big),
+\]</span></p>
+<p>donde <span class="math inline">\(d_{t,m}=\text{E}(D_{t,m})\)</span> representa el número eseperado de muertes atribuibles a COVID-19 y <span class="math inline">\(|\Psi|\)</span> es el parámetro de dispersión con <span class="math inline">\(\Psi \sim \mathcal{N}(0,5)\)</span>.</p>
+<p>Sea <span class="math inline">\(H_{t,m}\)</span> el número observado de hospitalizaciones, donde:</p>
+<p><span class="math display">\[
+H_{t,m} \sim \text{NegBin}\Big(h_{t,m},h_{t,m}+\frac{h_{t,m}^2}{|\psi|}\Big),
+\]</span></p>
+<p>donde <span class="math inline">\(h_{t,m}=\text{E}(H_{t,m})\)</span> denota el número esperado de hospitalizaciones atribuibles a COVID-19 y <span class="math inline">\(|\psi|\)</span> es el parámetro de dispersión.</p>
+<!-- Since $d_{t,m}$ is modelled through the number of infections $c$in previous days, one consideration to be made is that -->
+<h3 id="modelado-y-dependencia-entre-muertes-y-hospitalizaciones">Modelado y dependencia entre muertes y hospitalizaciones</h3>
+<p>El número esperado de muertes puede ser determinado pore el número de hospitalizaciones (<span class="math inline">\(h_m\)</span>), la distribución del tiempo entre la hospitalización y la muerte (<span class="math inline">\(\phi_m\)</span>) y la tasa de muerte dada la hospitalización (<span class="math inline">\(p_m\)</span>). Asimismo, el número esperado de hospitalizaciones está determinado por el número de infecciones (<span class="math inline">\(c_m\)</span>), el tiempo entre infección y hospitalización (<span class="math inline">\(\pi_m\)</span>) y la tasa de hospitalización dado la infección (infection hospitalization rate) <span class="math inline">\(\text{ihr}_m\)</span>.</p>
+<p><em>Tasa de infección dada la hospitalización</em></p>
+<p>La tasa de hospitalización dado la infección fue obtenida de estimaciones previas que asumen tasas de ataque homogéneas en diferentes grupos de edad <span class="citation" data-cites="Verity2020">(<a href="#ref-Verity2020" role="doc-biblioref">Verity et al., 2020</a>)</span>. Dado que México no tiene datos relacionados al potencial contacto entre los individuos, se utilizaron los datos de Reino Unido tomando en cuenta los datos poblacionales de las entidades federativas. Lo anterior resultó en tasas de infección <span class="math inline">\(\text{ihr}_m\)</span> para cada estado. Adicionalmente introducimos ruido a cada tasa con la siguiente distribución:</p>
+<p><span class="math display">\[
+\text{ihr}_m^* \sim \text{ihr}_m \cdot \mathcal{N}(1,0.1).
+\]</span></p>
+<p><em>Distribución del tiempo entre infección y hospitalización</em></p>
+<p>La distribución del tiempo entre infección y hospitalización puede ser definida como la suma de 2 tiempos aleatorios:</p>
+<ol type="1">
+<li>Tiempo entre infección e inicio de síntomas.</li>
+<li>Tiempo entre síntomas y hospitalización.</li>
+</ol>
+<p>Denotamos estos tiempos con <span class="math inline">\(\pi_1\)</span> y <span class="math inline">\(\pi_{2,m}\)</span>, respectivamente. Por lo tanto:</p>
+<p><span class="math display">\[
+\pi_m = \pi_1 + \pi_{2,m} 
+\]</span> <span class="math display">\[
+\pi_1 \sim \text{Gamma}(5.1,0.86) 
+\]</span> donde <span class="math inline">\(\pi_{2,m}\)</span> corresponde a la distribución posterior predictiva de nuestro modelo multi-estado. Los parámetros de <span class="math inline">\(\pi_1\)</span> corresponden a datos epidemiológicos de estudios previos <span class="citation" data-cites="Verity2020 Ferguson2020">(<a href="#ref-Ferguson2020" role="doc-biblioref">Ferguson et al., 2020</a>; <a href="#ref-Verity2020" role="doc-biblioref">Verity et al., 2020</a>)</span>.</p>
+<p><em>Distribución del tiempo entre hospitalización y muerte</em></p>
+<p>Igual que la sección previa y utilizando nuestro modelo multi-estado, <span class="math inline">\(\phi_m\)</span> representa la distribución del tiempo entre la hospitalización y muerte.</p>
+<p><em>Número esperado de muertes y hospitalizaciones</em></p>
+<p>Tomando en cuenta lo anterior, el número esperado de muertes está dado por:</p>
+<p><span class="math display">\[
+d_{t,m} = p_m\sum_{\tau=0}^{t-1}h_{\tau,m}\phi_{t-\tau,m}^*,
+\]</span></p>
+<p>donde <span class="math inline">\(\phi^*\)</span> es discretizado por <span class="math inline">\(\phi_{s,m} = \int_{s-0.5}^{s+0.5} \phi(\tau)d\tau\)</span> para <span class="math inline">\(s = 2,3,\ldots\)</span> y <span class="math inline">\(\phi_{1,m} = \int_{0}^{1.5} \phi(\tau)d\tau\)</span>, donde <span class="math inline">\(\phi(\tau)\)</span> es la función de densidad de <span class="math inline">\(\phi\)</span>. Esto quiere decir que <strong>el número esperado de muertes al día de hoy está dado por la suma de las hospitalizaciones de los días previos ponderado por la probabilidad de morir</strong>.</p>
+<p>El número esperado de hospitalizaciones está dado por:</p>
+<p><span class="math display">\[
+h_{t,m} = \text{ihr}_m^*\sum_{\tau=0}^{t-1}c_{\tau,m}\pi_{t-\tau,m}^*,
+\]</span></p>
+<p>donde <span class="math inline">\(c_{\tau,m}\)</span> es el número esperado de infecciones en el día <span class="math inline">\(\tau\)</span> para el estado <span class="math inline">\(m\)</span>.</p>
+<h3 id="modelado-de-las-infecciones">Modelado de las infecciones</h3>
+<p>Sabemos que la detección de nuevas infecciones por SARS-CoV-2 están dadas por:</p>
+<ol type="1">
+<li>La capacidad de cada estado en realizar pruebas.</li>
+<li>La cantidad de casos asintomáticos.</li>
+</ol>
+<p>El modelo asume que el número esperado de infecciones <span class="math inline">\(c_m\)</span> para cada entidad federativa está determinado por un proceso de renovación. Asimsmo, utilizamos el tiempo entre infecciones entre los individuos <span class="math inline">\(g\)</span> (serial interval). De tal manera que el número esperado de infecciones al día <span class="math inline">\(t\)</span> en el estado <span class="math inline">\(m\)</span> está dado por:</p>
+<p><span class="math display">\[
+c_{t,m} = \Big( 1-\frac{\sum_{i=1}^{t-1}c_{i,m}}{N_m}\Big)R_{t,m}\sum_{\tau=0}^{t-1}c_{\tau,m}g_{t-\tau},
+\]</span> donde <span class="math inline">\(N_m\)</span> es la población del estado <span class="math inline">\(m\)</span>, <span class="math inline">\(R_{t,m}\)</span> es el número efectivo de reproducción al día <span class="math inline">\(t\)</span> en el estado m <span class="math inline">\(m\)</span> y <span class="math inline">\(g_{s}\)</span> es el tiempo entre infecciones discretizado por <span class="math inline">\(g_{s} = \int_{s-0.5}^{s+0.5} g(\tau)d\tau\)</span> para <span class="math inline">\(s = 2,3,\ldots\)</span> y <span class="math inline">\(g_{1} = \int_{0}^{1.5} g(\tau)d\tau\)</span>, con <span class="math inline">\(g(\tau)\)</span> siendo generado por <span class="math inline">\(g \sim \text{Gamma}(6.5,0.62)\)</span> <span class="citation" data-cites="Bi2020">(<a href="#ref-Bi2020" role="doc-biblioref">Bi et al., 2020</a>)</span>. El factor <span class="math inline">\(1-N_m^{-1}\sum_{i=1}^{t-1}c_{i,m}\)</span> ajusta a <span class="math inline">\(R_{t,m}\)</span> con el fin de tomar en cuenta el acumulado de infectados al día <span class="math inline">\(t\)</span>, es decir, a medida que más personas se infecten menos personas susceptibles habrán. <strong>Esta ecuación nos dice que el número esperado de infecciones al día de hoy depende de los infectados en días anterior ponderados por el tiempo entre infecciones entre los individuos y el número efectivo de reproducción.</strong></p>
+<h3 id="número-efectivo-de-reproducción">Número efectivo de reproducción</h3>
+<p>El modelo original de <span class="citation" data-cites="Flaxman2020"><a href="#ref-Flaxman2020" role="doc-biblioref">Flaxman et al.</a> (<a href="#ref-Flaxman2020" role="doc-biblioref">2020</a>)</span> consideraba el efecto de las medidas de mitigación en <span class="math inline">\(R_{t,m}\)</span>, como el cierre de escuelas, confinamientos etc. En Brasil y Estados Unidos, donde el modelo del Imperial College fue también utilizado, se incorporó el cambio en movilidad en diferentes lugares (parques, tránsito, áreas residenciales, etc.) <span class="citation" data-cites="Mellan2020"><a href="#ref-Unwin2020" role="doc-biblioref">Unwin et al.</a> (<a href="#ref-Unwin2020" role="doc-biblioref">2020</a>)</span>. Estos reportes de movilidad son capturados por Google <span class="citation" data-cites="Aktay2020">(<a href="#ref-Aktay2020" role="doc-biblioref">Aktay et al., 2020</a>)</span> y se actualizan semanalmente.</p>
+<p>Nuestro modelo utiliza el cambio de movilidad en áreas residenciales (<span class="math inline">\(l=1\)</span>) y el promedio entre el cambio en movilidad de espacios de trabajo, de recreación y tiendas de autoservicio (<span class="math inline">\(l=2\)</span>). De tal manera que:</p>
+<p><span class="math display">\[
+R_{t,m} = R_{0,m}\Big(2\lambda\Big\{ -(\sum_{l=1}^3 \alpha_kI_{l,t,m})-\alpha_{r(m)}^{\text{region}}I_{2,t,m} - \alpha_m^{\text{state}}I_{2,t,m}-\epsilon_{w_m(t),m} \Big\}\Big),
+\]</span></p>
+<p>donde <span class="math inline">\(\lambda\)</span> es la función logística, <span class="math inline">\(\alpha_k\)</span> denota los efectos para los 32 estados, <span class="math inline">\(\alpha_{r(m)}^{\text{region}}\)</span> representa específcos de las regiones, <span class="math inline">\(\alpha_m^{\text{state}}\)</span> son efectos estatales y <span class="math inline">\(\epsilon_{w_m(t),m}\)</span> es un proceso <strong>semanal</strong> autoregresivo de orden 2 (<span class="math inline">\(AR(2)\)</span>) centrado en 0 y con desviación estándar estacionaria <span class="math inline">\(\sigma_w\)</span> que captura la variación entre estados que no es posible explicar por los indicadores de movilidad <span class="citation" data-cites="Unwin2020">(<a href="#ref-Unwin2020" role="doc-biblioref">Unwin et al., 2020</a>)</span>. <span class="math inline">\(AR(2)\)</span> empieza con <span class="math inline">\(\epsilon_{1,m} \sim \mathcal{N}(0,\sigma_w^*)\)</span> y:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\epsilon_{1,m} &amp;\sim  \mathcal{N}(\rho_1\epsilon_{w-1,m}+\rho_1\epsilon_{w-2,m},\sigma_w^*) \space \text{para} \space m=2,3,\dots,W \\
+\rho_1 &amp;\sim \mathcal{N}(08,.05) \\
+\rho_2 &amp;\sim \mathcal{N}(.1,.05) \\
+\sigma_w &amp;\sim \mathcal{N}^+(0,.2) \\
+\sigma_w^* &amp;= \sigma_w\sqrt{1-\rho_1^2-\rho_1^2-2\rho_1^2\rho_2/(1-\rho_2)}
+\end{aligned}
+\]</span> con <span class="math inline">\(\rho_1\)</span> y <span class="math inline">\(\rho_2\)</span> <span class="math inline">\(\in [0,1]\)</span></p>
+<p>La distribución a priori para <span class="math inline">\(R_{0,m}=|R_{0,m}^*|\)</span> es:</p>
+<p><span class="math display">\[
+R_{0,m}^* \sim \mathcal{N}(3.28, |\kappa|)
+\]</span> <span class="math display">\[
+\kappa \sim \mathcal{N}(0,0.5),
+\]</span></p>
+<p>donde <span class="math inline">\(\kappa\)</span> le da variabilidad a <span class="math inline">\(R_{0,m}\)</span> dado que éste aprende de todas las entidades federativas. La media de 3.28 fue obtenida de un meta-análsis previo <span class="citation" data-cites="Liu2020">(<a href="#ref-Liu2020" role="doc-biblioref">Liu et al., 2020</a>)</span>. Las distribuciones a priori de los hiperparámetros de <span class="math inline">\(R_{t,m}\)</span> están determinados por:</p>
+<p><span class="math display">\[
+\alpha_k \sim \mathcal{N}(0,0.5)
+\]</span></p>
+<p><span class="math display">\[
+\alpha_{r(m)}^{\text{región}} \sim \mathcal{N}(0,|\gamma_r|), \ \ \gamma_r \sim \mathcal{N}(0,0.5),
+\]</span></p>
+<p><span class="math display">\[
+\alpha_m^{\text{estado}} \sim \mathcal{N}(0,|\gamma_s|), \ \ \gamma_s \sim \mathcal{N}(0,0.5).
+\]</span></p>
+<p>Finalmente el modelo asume que el número esperado de infecciones ocurren 21 días antes de que el estado <span class="math inline">\(m\)</span> haya acumulado 10 muertes observadas. A partir de esta fecha, simulamos 6 días seguidos de infecciones <span class="math inline">\(c_{1,m},...,c_{6,m}\sim \mathrm{Exp}(\iota)\)</span>, donde <span class="math inline">\(\iota\sim \mathrm{Exp}(0.3)\)</span>, Estas infecciones se infieren con la distribución posterior.</p>
+<h2 id="estadística-computacional">Estadística computacional</h2>
+<ul>
+<li><p>Inferencia Bayesiana, es decir, <span class="math inline">\(\mathbb{P}(\boldsymbol{\theta}|\mathcal{D}) \propto \mathbb{P}(\mathcal{D}|\boldsymbol{\theta})\mathbb{P}(\boldsymbol{\theta})\)</span> donde <span class="math inline">\(\boldsymbol{\theta}=\{\alpha_k,\alpha_m,\kappa,\dots\}\)</span>. Más de 1,500 parámetros a estimar.</p></li>
+<li><p>Muestrear de la posterior utilizando cadenas de Markov Monte Carlo (MCMC). Se utilizó el lenguaje de programación <code>Stan</code>, el cual implementa el algoritmo Monte Carlo Hamiltoniano <span class="citation" data-cites="carpenter2017stan">(<a href="#ref-carpenter2017stan" role="doc-biblioref">Carpenter et al., 2017</a>)</span>.</p></li>
+<li><p>Debido a lo anterior, se utilizó una supercomputadora con el objetivo de agilizar el proceso de estimación. Éste duró 50 horas.</p></li>
+</ul>
+<h1 id="resultados">Resultados</h1>
+<h2 id="modelo-multi-estado">Modelo multi-estado</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<img src="img/mu_l_intervalsjer2modi.png" alt="Efectos aleatorios por estado" width="1361" />
+<p class="caption">
+Figure 2: Efectos aleatorios por estado
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="img/mu_12_intervalsjer2modi.png" alt="Efectos aleatorios por estado y sector" width="1361" />
+<p class="caption">
+Figure 3: Efectos aleatorios por estado y sector
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="img/ppc_plot_modi_mort.png" alt="Distribución posterior predictiva para tiempo entre hospitalización y muerte" width="1361" />
+<p class="caption">
+Figure 4: Distribución posterior predictiva para tiempo entre hospitalización y muerte
+</p>
+</div>
+</div>
+<h2 id="imputación-de-muertes-y-hospitalizaciones">Imputación de muertes y hospitalizaciones</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
+<img src="img/muertes_qi.png" alt="Tasa de positividad en el tiempo para muertes observadas" width="1361" />
+<p class="caption">
+Figure 5: Tasa de positividad en el tiempo para muertes observadas
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="img/hospitalizados_qi.png" alt="Tasa de positividad en el tiempo para hospitalizaciones observadas" width="1361" />
+<p class="caption">
+Figure 6: Tasa de positividad en el tiempo para hospitalizaciones observadas
+</p>
+</div>
+</div>
+<h2 id="modelo-epidemiológico">Modelo epidemiológico</h2>
+<div class="layout-chunk" data-layout="l-body">
+<table>
+<caption><span id="tab:unnamed-chunk-6">Table 1: </span>Tasa de ataque y número esperado de infecciones acumulado hasta el 24-08-21</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Estado</th>
+<th style="text-align: left;">Tasa de ataque [95% ICr]</th>
+<th style="text-align: left;">Total [95% ICr]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Aguascalientes</td>
+<td style="text-align: left;">0.17 [0.14 - 0.21]</td>
+<td style="text-align: left;">243,888 [200,848.9 - 301,273.3]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Baja California</td>
+<td style="text-align: left;">0.18 [0.15 - 0.22]</td>
+<td style="text-align: left;">654,276.2 [545,230.2 - 799,671]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baja California Sur</td>
+<td style="text-align: left;">0.21 [0.17 - 0.26]</td>
+<td style="text-align: left;">168,988.7 [136,800.4 - 209,224.1]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Campeche</td>
+<td style="text-align: left;">0.14 [0.11 - 0.17]</td>
+<td style="text-align: left;">140,086.4 [110,067.9 - 170,104.9]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chiapas</td>
+<td style="text-align: left;">0.04 [0.03 - 0.05]</td>
+<td style="text-align: left;">229,214.7 [171,911 - 286,518.4]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chihuahua</td>
+<td style="text-align: left;">0.15 [0.13 - 0.19]</td>
+<td style="text-align: left;">570,223 [494,193.3 - 722,282.5]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ciudad de Mexico</td>
+<td style="text-align: left;">0.32 [0.28 - 0.38]</td>
+<td style="text-align: left;">2,885,966 [2,525,221 - 3,427,085]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coahuila</td>
+<td style="text-align: left;">0.16 [0.13 - 0.2]</td>
+<td style="text-align: left;">514,995.2 [418,433.6 - 643,744]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Colima</td>
+<td style="text-align: left;">0.19 [0.16 - 0.24]</td>
+<td style="text-align: left;">149,179.1 [125,624.5 - 188,436.7]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Durango</td>
+<td style="text-align: left;">0.11 [0.09 - 0.13]</td>
+<td style="text-align: left;">205,589.6 [168,209.6 - 242,969.5]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Guanajuato</td>
+<td style="text-align: left;">0.15 [0.12 - 0.18]</td>
+<td style="text-align: left;">934,226.2 [747,381 - 1,121,072]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Guerrero</td>
+<td style="text-align: left;">0.12 [0.1 - 0.14]</td>
+<td style="text-align: left;">438,845.8 [365,704.8 - 511,986.7]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Hidalgo</td>
+<td style="text-align: left;">0.17 [0.14 - 0.21]</td>
+<td style="text-align: left;">524,690.4 [432,098 - 648,146.9]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jalisco</td>
+<td style="text-align: left;">0.15 [0.12 - 0.19]</td>
+<td style="text-align: left;">1,261,454 [1,009,163 - 1,597,842]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mexico</td>
+<td style="text-align: left;">0.15 [0.13 - 0.19]</td>
+<td style="text-align: left;">2,614,168 [2,265,613 - 3,311,280]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Michoacan</td>
+<td style="text-align: left;">0.11 [0.09 - 0.14]</td>
+<td style="text-align: left;">530,794.1 [434,286.1 - 675,556.1]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Morelos</td>
+<td style="text-align: left;">0.15 [0.13 - 0.19]</td>
+<td style="text-align: left;">306,608.7 [265,727.5 - 388,371]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nayarit</td>
+<td style="text-align: left;">0.17 [0.14 - 0.21]</td>
+<td style="text-align: left;">219,057.1 [180,399.9 - 270,599.9]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nuevo Leon</td>
+<td style="text-align: left;">0.18 [0.15 - 0.23]</td>
+<td style="text-align: left;">1,009,828 [841,522.9 - 1,290,335]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oaxaca</td>
+<td style="text-align: left;">0.09 [0.07 - 0.11]</td>
+<td style="text-align: left;">372,923.4 [290,051.5 - 455,795.2]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Puebla</td>
+<td style="text-align: left;">0.17 [0.14 - 0.2]</td>
+<td style="text-align: left;">1,122,757 [924,623.1 - 1,320,890]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Queretaro</td>
+<td style="text-align: left;">0.19 [0.16 - 0.23]</td>
+<td style="text-align: left;">433,131 [364,741.9 - 524,316.5]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Quintana Roo</td>
+<td style="text-align: left;">0.2 [0.17 - 0.25]</td>
+<td style="text-align: left;">344,651.8 [292,954 - 430,814.8]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">San Luis Potosi</td>
+<td style="text-align: left;">0.13 [0.11 - 0.16]</td>
+<td style="text-align: left;">372,598.5 [315,275.6 - 458,582.7]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Sinaloa</td>
+<td style="text-align: left;">0.18 [0.15 - 0.22]</td>
+<td style="text-align: left;">568,201.3 [473,501.1 - 694,468.3]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sonora</td>
+<td style="text-align: left;">0.19 [0.16 - 0.23]</td>
+<td style="text-align: left;">584,201.6 [491,959.2 - 707,191.3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tabasco</td>
+<td style="text-align: left;">0.15 [0.12 - 0.18]</td>
+<td style="text-align: left;">385,843 [308,674.4 - 463,011.7]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tlaxcala</td>
+<td style="text-align: left;">0.12 [0.1 - 0.15]</td>
+<td style="text-align: left;">438,072.2 [365,060.2 - 547,590.3]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tamaulipas</td>
+<td style="text-align: left;">0.14 [0.11 - 0.17]</td>
+<td style="text-align: left;">193,201.5 [151,801.2 - 234,601.9]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Veracruz</td>
+<td style="text-align: left;">0.11 [0.09 - 0.14]</td>
+<td style="text-align: left;">939,384.8 [768,587.6 - 1,195,581]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yucatan</td>
+<td style="text-align: left;">0.16 [0.14 - 0.21]</td>
+<td style="text-align: left;">361,455.7 [316,273.7 - 474,410.6]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Zacatecas</td>
+<td style="text-align: left;">0.13 [0.1 - 0.16]</td>
+<td style="text-align: left;">216,635.4 [166,642.6 - 266,628.2]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-7"></span>
+<img src="img/mu_plot.png" alt="Número básico de reproducción" width="1361" />
+<p class="caption">
+Figure 7: Número básico de reproducción
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="img/death_hospi_plot.png" alt="Porcentaje de pacientes que mueren dado que fueron hospitalizados" width="1361" />
+<p class="caption">
+Figure 8: Porcentaje de pacientes que mueren dado que fueron hospitalizados
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
+<img src="img/mobi_plot.png" alt="Efecto del cambio en movilidad para todas las entidades federativas" width="1361" />
+<p class="caption">
+Figure 9: Efecto del cambio en movilidad para todas las entidades federativas
+</p>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h1 id="limitaciones">Limitaciones</h1>
+<ul>
+<li>Sub-estimación del número de muertes y hospitalizados.</li>
+<li>Impacto de la vacunación.</li>
+<li>Cambio en la tasa de reproducción con nuevas variantes.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
+<div id="ref-Aktay2020" class="csl-entry" role="doc-biblioentry">
+Aktay, A., Bavadekar, S., Cossoul, G., Davis, J., Desfontaines, D., Fabrikant, A., Gabrilovich, E., Gadepalli, K., Gipson, B., Guevara, M., Kamath, C., Kansal, M., Lange, A., Mandayam, C., Oplinger, A., Pluntke, C., Roessler, T., Schlosberg, A., Shekel, T., … Wilson, R. J. (2020). <span class="nocase">Google COVID-19 community mobility reports: Anonymization process description (version 1.0)</span>. <em>arXiv</em>, 1–5. <a href="http://arxiv.org/abs/2004.04145">http://arxiv.org/abs/2004.04145</a>
+</div>
+<div id="ref-Bi2020" class="csl-entry" role="doc-biblioentry">
+Bi, Q., Wu, Y., Mei, S., Ye, C., Zou, X., Zhang, Z., Liu, X., Wei, L., Truelove, S. A., Zhang, T., Gao, W., Cheng, C., Tang, X., Wu, X., Wu, Y., Sun, B., Huang, S., Sun, Y., Zhang, J., … Feng, T. (2020). <span class="nocase">Epidemiology and transmission of COVID-19 in 391 cases and 1286 of their close contacts in Shenzhen, China: a retrospective cohort study</span>. <em>The Lancet Infectious Diseases</em>, <em>20</em>(8), 911–919. <a href="https://doi.org/10.1016/S1473-3099(20)30287-5">https://doi.org/10.1016/S1473-3099(20)30287-5</a>
+</div>
+<div id="ref-carpenter2017stan" class="csl-entry" role="doc-biblioentry">
+Carpenter, B., Gelman, A., Hoffman, M. D., Lee, D., Goodrich, B., Betancourt, M., Brubaker, M. A., Guo, J., Li, P., &amp; Riddell, A. (2017). Stan: A probabilistic programming language. <em>Grantee Submission</em>, <em>76</em>(1), 1–32.
+</div>
+<div id="ref-Ferguson2020" class="csl-entry" role="doc-biblioentry">
+Ferguson, N., Laydon, D., Nedjati-Gilani, G., Imai, N., Ainslie, K., Baguelin, M., Bhatia, S., Boonyasiri, A., Cucunubá, Z., Cuomo-Dannenburg, G., &amp; Dighe, A. (2020). <span class="nocase">Report 9: Impact of non-pharmaceutical interventions (NPIs) to reduce COVID-19 mortality and healthcare demand</span>. <em>Imperial College London</em>, <em>March</em>, 20. <a href="https://doi.org/10.25561/77482">doi.org/10.25561/77482</a>
+</div>
+<div id="ref-Flaxman2020" class="csl-entry" role="doc-biblioentry">
+Flaxman, S., Mishra, S., Gandy, A., Unwin, H. J. T., Mellan, T. A., Coupland, H., Whittaker, C., Zhu, H., Berah, T., Eaton, J. W., Monod, M., Perez-Guzman, P. N., Schmit, N., Cilloni, L., Ainslie, K. E. C., Baguelin, M., Boonyasiri, A., Boyd, O., Cattarino, L., … Bhatt, S. (2020). <span class="nocase">Estimating the effects of non-pharmaceutical interventions on COVID-19 in Europe</span>. <em>Nature</em>, <em>584</em>(7820), 257–261. <a href="https://doi.org/10.1038/s41586-020-2405-7">https://doi.org/10.1038/s41586-020-2405-7</a>
+</div>
+<div id="ref-Liu2020" class="csl-entry" role="doc-biblioentry">
+Liu, Y., Gayle, A. A., Wilder-Smith, A., &amp; Rocklöv, J. (2020). <span class="nocase">The reproductive number of COVID-19 is higher compared to SARS coronavirus</span>. <em>Journal of Travel Medicine</em>, <em>27</em>(2), 1–4. <a href="https://doi.org/10.1093/jtm/taaa021">https://doi.org/10.1093/jtm/taaa021</a>
+</div>
+<div id="ref-Mellan2020" class="csl-entry" role="doc-biblioentry">
+Mellan, T. A., Hoeltgebaum, H. H., Mishra, S., Whittaker, C., Schnekenberg, R. P., Gandy, A., Unwin, H. J. T., Vollmer, M. A. C., Coupland, H., Hawryluk, I., Faria, N. R., Vesga, J., Zhu, H., Hutchinson, M., Ratmann, O., Monod, M., Ainslie, K., Baguelin, M., Bhatia, S., … Bhatt, S. (2020). <span class="nocase">Report 21: Estimating COVID-19 cases and reproduction number in Brazil</span>. <em>Imperial College London</em>, <em>May</em>, 2020.05.09.20096701. <a href="https://doi.org/10.25561/78872">doi.org/10.25561/78872</a>
+</div>
+<div id="ref-Unwin2020" class="csl-entry" role="doc-biblioentry">
+Unwin, H. J. T., Mishra, S., Bradley, V. C., Gandy, A., Vollmer, M. A. C., Mellan, T., Ainslie, K., Whittaker, C., Ish-horowicz, J., Filippi, S., Xi, X., Monod, M., Hutchinson, M., Valka, F., Zhu, H., Hawryluk, I., Milton, P., Baguelin, M., Brazeau, N., … Neil, M. (2020). <span class="nocase">Report 23: State-level tracking of COVID-19 in the United States</span>. <em>Imperial College London</em>, <em>May</em>. <a href="https://doi.org/10.25561/79231">doi.org/10.25561/79231</a>
+</div>
+<div id="ref-Verity2020" class="csl-entry" role="doc-biblioentry">
+Verity, R., Okell, L. C., Dorigatti, I., Winskill, P., Whittaker, C., Imai, N., Cuomo-Dannenburg, G., Thompson, H., Walker, P. G. T., Fu, H., Dighe, A., Griffin, J. T., Baguelin, M., Bhatia, S., Boonyasiri, A., Cori, A., Cucunubá, Z., FitzJohn, R., Gaythorpe, K., … Ferguson, N. M. (2020). <span class="nocase">Estimates of the severity of coronavirus disease 2019: a model-based analysis</span>. <em>The Lancet Infectious Diseases</em>, <em>20</em>(6), 669–677. <a href="https://doi.org/10.1016/S1473-3099(20)30243-7">https://doi.org/10.1016/S1473-3099(20)30243-7</a>
+</div>
+</div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+<h3 id="references">References</h3>
+<div id="references-listing"></div>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<div class="distill-site-nav distill-site-footer">
+<p>Software licensed under the [Apache License, v2.0] (https://www.apache.org/licenses/LICENSE-2.0).</p>
+</div>
+<!--/radix_placeholder_navigation_after_body-->
+
+
+</body>
+
+</html>
