@@ -1,7 +1,7 @@
 ---
 title: "Sobre los autores"
 description: |
-  Some additional details about the website
+  Autores principales
 ---
 
 ```{r setup, include=FALSE}
