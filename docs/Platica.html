@@ -2183,23 +2183,27 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --title-size:       18px;
+    --title-size:       22px;
     --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
+    --text-size:        19px;
     --hover-color:      white;
-    --bkgd-color:       #15427a; /*-- EDITED --*/
+    --bkgd-color:       #427dc5; /*-- EDITED --*/
   }
 
   .distill-site-footer {
     --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
+    --text-size:        19px;
     --hover-color:      white;
-    --bkgd-color:       #15427a; /*-- EDITED --*/
+    --bkgd-color:       #427dc5; /*-- EDITED --*/
   }
 
   /*-- Additional custom styles --*/
   /* Add any additional CSS rules below                      */
-  </style>
+
+  .distill-site-header .logo img {
+      max-height: 70px;
+      margin-bottom: -20px;
+  }</style>
   <style type="text/css">
   /* base style */
 
@@ -2572,25 +2576,25 @@ R_{0,m}^* \sim \mathcal{N}(3.28, |\kappa|)
 <h2 id="modelo-multi-estado">Modelo multi-estado</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
-<img src="img/mu_l_intervalsjer2modi.png" alt="Efectos aleatorios por estado" width="1361" />
+<img src="img/mu_l_intervalsjer2modi.png" alt="Efectos aleatorios por estado para el tiempo entre hospitalización y muerte" width="1361" />
 <p class="caption">
-Figure 2: Efectos aleatorios por estado
+Figure 2: Efectos aleatorios por estado para el tiempo entre hospitalización y muerte
 </p>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="img/mu_12_intervalsjer2modi.png" alt="Efectos aleatorios por estado y sector" width="1361" />
+<img src="img/mu_12_intervalsjer2modi.png" alt="Efectos aleatorios por estado y sector para el tiempo entre hospitalización y muerte" width="1361" />
 <p class="caption">
-Figure 3: Efectos aleatorios por estado y sector
+Figure 3: Efectos aleatorios por estado y sector para el tiempo entre hospitalización y muerte
 </p>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
-<img src="img/ppc_plot_modi_mort.png" alt="Distribución posterior predictiva para tiempo entre hospitalización y muerte" width="1361" />
+<img src="img/ppc_plot_modi_mort.png" alt="Distribución posterior predictiva para el tiempo entre hospitalización y muerte" width="1361" />
 <p class="caption">
-Figure 4: Distribución posterior predictiva para tiempo entre hospitalización y muerte
+Figure 4: Distribución posterior predictiva para el tiempo entre hospitalización y muerte
 </p>
 </div>
 </div>
