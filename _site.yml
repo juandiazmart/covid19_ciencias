@@ -13,6 +13,8 @@ navbar:
       href: index.html
     - text: "Datos y código"
       href: datos.html
+    - text: "Artículo"
+      href: Platica.html
     - text: "Sobre los autores"
       href: authors.html
     - text: "Acerca de"
