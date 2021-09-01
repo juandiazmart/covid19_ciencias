@@ -22,9 +22,9 @@ Informe de movilidad
 
 https://www.google.com/covid19/mobility/
 
-# Codigo
+# Coóigo
 
-El codigo del proyecto esta dividido en los siguientes repositorios:
+El código del proyecto está dividido en los siguientes repositorios:
 
 - **Modelo epidemiologico:** https://github.com/juandiazmart/covid19_epi
 - **Modelo multiestado:** https://github.com/juandiazmart/covid19_multi
