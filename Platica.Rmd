@@ -32,6 +32,10 @@ header-includes:
 knitr::opts_chunk$set(echo = TRUE,fig.align = "center")
 ```
 
+# Fuente de financiamiento
+
+El proyecto fue financiado mediante el proyecto 312045 otorgado por el CONACYT.
+
 # Introducción
 
 Muchos de los modelos epidemiológicos se basan en la incidencia de casos confirmados para poder hacer estimaciones y/o proyecciones de diferentes desenlaces en salud, ya sea mortalidad, hospitalizaciones, intubaciones, etc.  Sin embargo, una de las grandes limitaciones de estos modelos es que no consideran el tiempo que pasa entre el momento de la infección y el momento que la prueba resulta positiva. Una consecuencia de este desfase es que los casos confirmados que se presentan día a día son en realidad los casos que se infectaron hace 2 semanas o más. Adicionalmente, el sistema de vigilancia en México no realiza pruebas a aquellos que no cumplen la definición operacional, implicando que este sistema no logra capturar a todas las personas asintomáticas.

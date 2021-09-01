@@ -1,7 +1,7 @@
 ---
-title: "Datos y codigo"
+title: "Datos y código"
 description: |
-  Aqui encontraras los datos relevantes para su consulta
+  Aquí encontrarás los datos relevantes para su consulta
 output: distill::distill_article
 ---
 
@@ -22,11 +22,11 @@ Informe de movilidad
 
 https://www.google.com/covid19/mobility/
 
-# Coóigo
+# Código
 
 El código del proyecto está dividido en los siguientes repositorios:
 
-- **Modelo epidemiologico:** https://github.com/juandiazmart/covid19_epi
+- **Modelo epidemiológico:** https://github.com/juandiazmart/covid19_epi
 - **Modelo multiestado:** https://github.com/juandiazmart/covid19_multi
-- **Pagina Web:** https://github.com/juandiazmart/covid19_ciencias
+- **Página Web:** https://github.com/juandiazmart/covid19_ciencias
 - **Dashboard:** https://github.com/jadm333/Covid19Dashboard
